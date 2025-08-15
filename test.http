@@ -1,0 +1,10 @@
+### Cetak PDF dari URL ke Printer
+POST http://localhost:3000/cetak
+Content-Type: application/json
+
+{
+    "id": "1060761",
+    "id_unit": "4470",
+    "printerName": "EPSON L3110 Series",
+    "jenis_obat": "D"
+}
