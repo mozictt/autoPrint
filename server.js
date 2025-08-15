@@ -15,12 +15,27 @@ app.use(cors());
 // app.use(cors({
 //     origin: "http://localhost:8081" // hanya izinkan dari domain ini
 // }));
-app.get("/", (req, res) => {
-    res.send(`
-        <h1>Welcome to API Cetak</h1>
-        <p>Gunakan endpoint <code>/cetak</code> untuk mencetak label.</p>
-        <p>Contoh: <code>/cetak?id=123&printerName=NamaPrinter&id_unit=1&jenis_obat=A&id=</code></p>
-    `);
+app.get("/", async (req, res) => {
+    try {
+        // Ambil daftar printer
+        const printers = await printer.getPrinters();
+
+        // Buat list HTML
+        const printerList = printers.map(p => `<li>${p.name}</li>`).join("");
+
+        res.send(`
+            <h1>Welcome to API Cetak</h1>
+            <p>Gunakan endpoint <code>/cetak</code> untuk mencetak label.</p>
+            <p>Contoh: <code>/cetak?id=123&printerName=NamaPrinter&id_unit=1&jenis_obat=A</code></p>
+            <h2>Printer yang terhubung:</h2>
+            <ul>${printerList || "<li>Tidak ada printer terdeteksi</li>"}</ul>
+        `);
+    } catch (error) {
+        res.send(`
+            <h1>Welcome to API Cetak</h1>
+            <p>Gagal mengambil daftar printer: ${error.message}</p>
+        `);
+    }
 });
 
 app.get("/cetak", async (req, res) => {
@@ -57,6 +72,10 @@ app.get("/cetak", async (req, res) => {
 
         await printer.print(filePath, { printer: printerName });
 
+        fs.unlink(filePath, (err) => {
+            if (err) console.error("Gagal hapus file:", err);
+        });
+
         res.json({
             success: true,
             message: "Cetak Berhasil",
@@ -64,6 +83,10 @@ app.get("/cetak", async (req, res) => {
         });
     } catch (err) {
         console.error("Gagal mencetak:", err);
+         if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
+
         res.status(500).json({
             success: false,
             message: "Cetak Gagal",
