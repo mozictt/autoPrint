@@ -8,11 +8,13 @@ const path = require("path");
 
 const app = express();
 
-let browser;
+let browser; // browser global agar tidak dibuka-tutup setiap cetak
 
 (async () => {
     browser = await puppeteer.launch({ headless: true });
+    console.log("Browser Puppeteer siap digunakan...");
 })();
+
 // Izinkan semua origin (untuk testing)
 app.use(cors());
 
@@ -58,8 +60,10 @@ app.get("/cetak", async (req, res) => {
     const filePath = path.join(__dirname, uniqueName);
 
     try {
-        const browser = await puppeteer.launch({ headless: true });
-        const page = await browser.newPage();
+        // const browser = await puppeteer.launch({ headless: true });
+        // const page = await browser.newPage();
+         const page = await browser.newPage();
+        
         await page.goto(
             `http://${ip}/ujicoba/public/cetak/etiket?id=${id}&jenis_obat=${jenis_obat}&id_unit=${id_unit}`,
             // `http://localhost:8081/cb/rskm/public/cetak/etiket?id=${id}&jenis_obat=${jenis_obat}&id_unit=${id_unit}`,
@@ -77,9 +81,9 @@ app.get("/cetak", async (req, res) => {
 
         await printer.print(filePath, { printer: printerName });
 
-        fs.unlink(filePath, (err) => {
-            if (err) console.error("Gagal hapus file:", err);
-        });
+        // fs.unlink(filePath, (err) => {
+        //     if (err) console.error("Gagal hapus file:", err);
+        // });
 
         res.json({
             success: true,
@@ -88,9 +92,9 @@ app.get("/cetak", async (req, res) => {
         });
     } catch (err) {
         console.error("Gagal mencetak:", err);
-         if (fs.existsSync(filePath)) {
-            fs.unlinkSync(filePath);
-        }
+        //  if (fs.existsSync(filePath)) {
+        //     fs.unlinkSync(filePath);
+        // }
 
         res.status(500).json({
             success: false,
