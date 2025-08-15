@@ -81,9 +81,9 @@ app.get("/cetak", async (req, res) => {
 
         await printer.print(filePath, { printer: printerName });
 
-        // fs.unlink(filePath, (err) => {
-        //     if (err) console.error("Gagal hapus file:", err);
-        // });
+        fs.unlink(filePath, (err) => {
+            if (err) console.error("Gagal hapus file:", err);
+        });
 
         res.json({
             success: true,
@@ -92,9 +92,9 @@ app.get("/cetak", async (req, res) => {
         });
     } catch (err) {
         console.error("Gagal mencetak:", err);
-        //  if (fs.existsSync(filePath)) {
-        //     fs.unlinkSync(filePath);
-        // }
+         if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
 
         res.status(500).json({
             success: false,
