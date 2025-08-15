@@ -26,7 +26,7 @@ app.post("/cetak", async (req, res) => {
         const browser = await puppeteer.launch({ headless: true });
         const page = await browser.newPage();
         await page.goto(
-            `http://${ip}/cb/rskm/public/cetak/etiket?id=${id}&jenis_obat=${jenis_obat}&id_unit=${id_unit}`,
+            `http://${ip}/rskm/public/cetak/etiket?id=${id}&jenis_obat=${jenis_obat}&id_unit=${id_unit}`,
             { waitUntil: "networkidle0" }
         );
 

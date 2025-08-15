@@ -19,12 +19,12 @@ app.get("/", (req, res) => {
     res.send(`
         <h1>Welcome to API Cetak</h1>
         <p>Gunakan endpoint <code>/cetak</code> untuk mencetak label.</p>
-        <p>Contoh: <code>/cetak?id=123&printerName=NamaPrinter&id_unit=1&jenis_obat=A</code></p>
+        <p>Contoh: <code>/cetak?id=123&printerName=NamaPrinter&id_unit=1&jenis_obat=A&id=</code></p>
     `);
 });
 
 app.get("/cetak", async (req, res) => {
-    const { id, printerName, id_unit, jenis_obat } = req.query;
+    const { id, printerName, id_unit, jenis_obat,ip } = req.query;
 
     if (!id || !printerName) {
         return res.status(400).json({
@@ -41,7 +41,7 @@ app.get("/cetak", async (req, res) => {
         const browser = await puppeteer.launch({ headless: true });
         const page = await browser.newPage();
         await page.goto(
-            `http://10.128.188.12/ujicoba/public/cetak/etiket?id=${id}&jenis_obat=${jenis_obat}&id_unit=${id_unit}`,
+            `http://${ip}/ujicoba/public/cetak/etiket?id=${id}&jenis_obat=${jenis_obat}&id_unit=${id_unit}`,
             // `http://localhost:8081/cb/rskm/public/cetak/etiket?id=${id}&jenis_obat=${jenis_obat}&id_unit=${id_unit}`,
             { waitUntil: "networkidle0" }
         );
@@ -79,3 +79,18 @@ app.listen(PORT, () => {
 
 
 
+
+
+
+
+
+// panduan instalasi di windows
+// 1. buka windows power sell run administrator
+// Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+// 2. npm install pdf-to-printer express node-fetch puppeteer
+// 3. npm install cors
+// 4. npm install pm2-windows-startup -g
+// 5. pm2-startup install
+// 6. pm2 save
+// 7. pm2 status
+// setelah selesai install restart dan cek di pm2  list apakah sudah jalan
