@@ -46,7 +46,7 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/cetak", async (req, res) => {
-    const { id, printerName, id_unit, jenis_obat, ip } = req.query;
+    const { id, printerName, id_unit, jenis_obat,ip } = req.query;
 
     if (!id || !printerName) {
         return res.status(400).json({
@@ -62,8 +62,8 @@ app.get("/cetak", async (req, res) => {
     try {
         // const browser = await puppeteer.launch({ headless: true });
         // const page = await browser.newPage();
-        const page = await browser.newPage();
-
+         const page = await browser.newPage();
+        
         await page.goto(
             `http://${ip}/rskm/public/cetak/etiket?id=${id}&jenis_obat=${jenis_obat}&id_unit=${id_unit}`,
             // `http://localhost:8081/cb/rskm/public/cetak/etiket?id=${id}&jenis_obat=${jenis_obat}&id_unit=${id_unit}`,
@@ -72,18 +72,14 @@ app.get("/cetak", async (req, res) => {
 
         await page.pdf({
             path: filePath,
-            width: "8cm",
-            height: "3.5cm",
+            width: "5cm",
+            height: "6cm",
             printBackground: true,
             margin: { top: 0, right: 0, bottom: 0, left: 0 }
         });
         // await browser.close();
 
-        // await printer.print(filePath, { printer: printerName });
-        await printer.print(filePath, {
-            printer: printerName,
-            printOptions: ['-print-settings "landscape"'] //portrait
-        });
+        await printer.print(filePath, { printer: printerName });
 
         fs.unlink(filePath, (err) => {
             if (err) console.error("Gagal hapus file:", err);
@@ -96,7 +92,7 @@ app.get("/cetak", async (req, res) => {
         });
     } catch (err) {
         console.error("Gagal mencetak:", err);
-        if (fs.existsSync(filePath)) {
+         if (fs.existsSync(filePath)) {
             fs.unlinkSync(filePath);
         }
 
