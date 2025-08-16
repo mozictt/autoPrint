@@ -79,7 +79,15 @@ app.get("/cetak", async (req, res) => {
         });
         // await browser.close();
 
-        await printer.print(filePath, { printer: printerName });
+        // await printer.print(filePath, { printer: printerName });
+        await printer.print(filePath, {
+            printer: printerName,
+            options: [
+                "-o media=Custom.80x35mm", // width=50mm, height=60mm
+                "-o fit-to-page",
+                // "-o orientation-requested=3" // 3=landscape, 4=reverse-landscape, 5=portrait, 6=reverse-portrait
+            ]
+        });
 
         fs.unlink(filePath, (err) => {
             if (err) console.error("Gagal hapus file:", err);
