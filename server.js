@@ -72,8 +72,8 @@ app.get("/cetak", async (req, res) => {
 
         await page.pdf({
             path: filePath,
-            width: "5cm",
-            height: "6cm",
+            width: "8cm",
+            height: "3.5cm",
             printBackground: true,
             margin: { top: 0, right: 0, bottom: 0, left: 0 }
         });
