@@ -18,15 +18,18 @@ setelah selesai install restart dan cek di pm2  list apakah sudah jalan
 
 versi lengkap
 Tutotial Setting cetak E-tiket printer Farmasi 
-1. Download Aplikasi Device Printer dari Link: https://d94r2itylgwnp.cloudfront.net/Drivers/11/11.5/PDC_11.5.exe
-2. Buka Link: https://github.com/mozictt/autoPrint.git  
-3. Jalankan sesuai intruksi pada file README.md
-4. Colokkan atau sambungkan Printers yang akan digunakan
-5. Masuk ke Control Panel ==> Devices And Printers
-6. Cari nama printer yang sudah tersambung
-7. Klik kanan pada printer digunakan kemudian klik Printer Properties ==> Tab General ==> Ganti Nama File menjadi "PDC Etiket Luar / PDC Etiket Dalam"
-8. Jika sudah, klik kanan kembali pada devices printer ==> Klik Printer Prefrences ==> Page Setup  dan ganti nama kertas menjadi "E-Tiket Luar / E-tiket Dalam"
-9. Sesuaikan ukuran kertas yang tersedia
+1. Download Aplikasi & Install Device Printer dari Link: https://d94r2itylgwnp.cloudfront.net/Drivers/11/11.5/PDC_11.5.exe
+2. Buka Link: https://github.com/mozictt/autoPrint.git  dan Klik tab Code ==> 
+Download ZIP 
+3. Buat Folder Baru pada Directory Documents
+4. Jalankan sesuai intruksi pada file README.md
+5. Colokkan atau sambungkan Printers yang akan digunakan
+6. Masuk ke Control Panel ==> Devices And Printers
+7. Cari nama printer yang sudah tersambung
+8. Klik kanan pada printer digunakan kemudian klik Printer Properties ==> Tab General ==> Ganti Nama File menjadi "PDC Etiket Luar / PDC Etiket Dalam"
+9. Jika sudah, klik kanan kembali pada devices printer ==> Klik Printer Prefrences ==> Page Setup  dan ganti nama kertas menjadi "E-Tiket Luar / E-tiket Dalam"
+10. Sesuaikan ukuran kertas yang tersedia
 
 Notes Tambahan : 
-1. jika versi browser di bawah 139.0.7258.68 jalankan command "npx puppeteer browsers install chrome" 
+1. jika versi browser di bawah 139.0.7258.68 jalankan command "npx puppeteer browsers install chrome"
+

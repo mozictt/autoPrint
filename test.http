@@ -3,8 +3,9 @@ POST http://localhost:3000/cetak
 Content-Type: application/json
 
 {
-    "id": "1060761",
+    "id": "322221",
     "id_unit": "4470",
     "printerName": "EPSON L3110 Series",
-    "jenis_obat": "D"
+    "jenis_obat": "D",
+    "ip": "10.128.188.12"
 }
